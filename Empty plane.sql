@@ -1,4 +1,17 @@
-WITH aircrafts_seats AS (
+
+    
+WITH  
+   tickets_flights AS    ( 
+                            SELECT ticket_no, 
+                                   flight_id
+                              FROM ticket_flights
+                        )
+, flights_aircrafts AS  (  
+                            SELECT flight_id,
+                                   aircraft_code
+                              FROM flights
+                        )  
+, aircrafts_seats AS     (
                             SELECT aircraft_code,
                                    COUNT(seat_no) AS aircraft_seats_total
                               FROM aircrafts
@@ -7,17 +20,6 @@ WITH aircrafts_seats AS (
                           GROUP BY aircraft_code
                         )
 
-, flights_aircrafts AS  (  
-                            SELECT flight_id,
-                                   aircraft_code
-                              FROM flights
-                        )  
-
-, tickets_flights AS    ( 
-                            SELECT ticket_no, 
-                                   flight_id
-                              FROM ticket_flights
-                        )
 
 , flight_seats_taken AS ( 
                             SELECT COUNT (ticket_no) AS seats_taken, 
